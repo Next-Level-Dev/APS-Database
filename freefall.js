@@ -37,3 +37,10 @@ document.getElementById('simulate-fall').addEventListener('click', () => {
   object.style.transition = `all ${time}s ease-in`;
   object.setAttribute('cy', '250');
 });
+
+document.getElementById('reset-fall').addEventListener('click', () => {
+  const object = document.getElementById('object');
+  object.style.transition = 'none';
+  object.setAttribute('cy', '50');
+  document.getElementById('fall-result').innerText = '';
+});
