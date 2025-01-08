@@ -30,7 +30,8 @@ document.getElementById('calculate-heat').addEventListener('click', () => {
     Nihai Sıcaklık: ${finalTemp} °C
   `;
 
-  // Renk değişimiyle gösterim
-  document.getElementById('surface1').setAttribute('fill', 'purple');
-  document.getElementById('surface2').setAttribute('fill', 'purple');
+  // Gradient color change
+  const gradient = `linear-gradient(to right, ${temp1 < temp2 ? 'red' : 'blue'}, ${temp1 < temp2 ? 'blue' : 'red'})`;
+  document.getElementById('surface1').style.fill = gradient;
+  document.getElementById('surface2').style.fill = gradient;
 });
