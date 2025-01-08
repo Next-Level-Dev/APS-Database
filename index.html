@@ -9,17 +9,21 @@
 <body>
   <nav>
     <h1>Interaktif Eğitim Laboratuvarı</h1>
-    <select id="experiment-selector">
-      <option value="ohm">Ohm Kanunu</option>
-      <option value="pressure">Katı Basıncı</option>
-    </select>
-    <button id="load-experiment">Deneyi Başlat</button>
   </nav>
   
-  <main id="experiment-container">
-    <h2>Deney Alanı</h2>
-    <div id="experiment-output">Burada deney sonuçları görüntülenecek.</div>
-  </main>
+  <div class="container">
+    <aside class="sidebar">
+      <h3>Deney Listesi</h3>
+      <ul id="experiment-list">
+        <!-- Deneyler dinamik olarak buraya yüklenecek -->
+      </ul>
+    </aside>
+
+    <main id="experiment-container">
+      <h2>Deney Alanı</h2>
+      <div id="experiment-output">Bir deney seçin!</div>
+    </main>
+  </div>
 
   <footer>
     <button id="quiz-button">Quiz Çöz</button>
@@ -28,18 +32,28 @@
 
   <script src="script.js"></script>
   <script>
-    document.getElementById('load-experiment').addEventListener('click', () => {
-      const experiment = document.getElementById('experiment-selector').value;
-      const output = document.getElementById('experiment-output');
+    const experiments = [
+      { id: 'ohm', name: 'Ohm Kanunu' },
+      { id: 'pressure', name: 'Katı Basıncı' }
+    ];
 
-      if (experiment === 'ohm') {
-        output.innerHTML = '<h3>Ohm Kanunu Deneyi Yüklendi!</h3>';
-      } else if (experiment === 'pressure') {
-        output.innerHTML = '<h3>Katı Basıncı Deneyi Yüklendi!</h3>';
-      } else {
-        output.innerHTML = '<h3>Bir deney seçin!</h3>';
-      }
+    const listContainer = document.getElementById('experiment-list');
+    const output = document.getElementById('experiment-output');
+
+    experiments.forEach(exp => {
+      const listItem = document.createElement('li');
+      listItem.textContent = exp.name;
+      listItem.addEventListener('click', () => loadExperiment(exp.id));
+      listContainer.appendChild(listItem);
     });
+
+    function loadExperiment(experimentId) {
+      output.innerHTML = `<h3>${experimentId.replace(/\b\w/g, c => c.toUpperCase())} Deneyi Yüklendi!</h3>`;
+      // İlgili JS dosyasını yükle
+      const script = document.createElement('script');
+      script.src = `${experimentId}.js`;
+      document.body.appendChild(script);
+    }
 
     document.getElementById('quiz-button').addEventListener('click', () => {
       alert('Quiz başlatıldı! Bu alan geliştirilebilir.');
