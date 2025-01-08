@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interaktif Simülasyon Laboratuvarı</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav>
+    <h1>Interaktif Eğitim Laboratuvarı</h1>
+    <select id="experiment-selector">
+      <option value="ohm">Ohm Kanunu</option>
+      <option value="pressure">Katı Basıncı</option>
+    </select>
+    <button id="load-experiment">Deneyi Başlat</button>
+  </nav>
+  
+  <main id="experiment-container">
+    <h2>Deney Alanı</h2>
+    <div id="experiment-output">Burada deney sonuçları görüntülenecek.</div>
+  </main>
+
+  <footer>
+    <button id="quiz-button">Quiz Çöz</button>
+    <button id="download-certificate">Sertifika Al</button>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
