@@ -1,23 +1,22 @@
-document.getElementById('load-experiment').addEventListener('click', () => {
-  const experiment = document.getElementById('experiment-selector').value;
-  const output = document.getElementById('experiment-output');
+const experiments = [
+  { id: 'ohm', name: 'Ohm Kanunu' },
+  { id: 'pressure', name: 'Katı Basıncı' }
+];
 
-  if (experiment === 'ohm') {
-    loadScript('js/ohm.js', () => {
-      output.innerHTML = '<h3>Ohm Kanunu Deneyi Yüklendi!</h3>';
-    });
-  } else if (experiment === 'pressure') {
-    loadScript('js/pressure.js', () => {
-      output.innerHTML = '<h3>Katı Basıncı Deneyi Yüklendi!</h3>';
-    });
-  } else {
-    output.innerHTML = '<h3>Bir deney seçin!</h3>';
-  }
+const listContainer = document.getElementById('experiment-list');
+const output = document.getElementById('experiment-output');
+
+// Deneyleri listele
+experiments.forEach(exp => {
+  const listItem = document.createElement('li');
+  listItem.textContent = exp.name;
+  listItem.addEventListener('click', () => loadExperiment(exp.id));
+  listContainer.appendChild(listItem);
 });
 
-function loadScript(src, callback) {
+function loadExperiment(experimentId) {
+  output.innerHTML = '<h3>Yükleniyor...</h3>';
   const script = document.createElement('script');
-  script.src = src;
-  script.onload = callback;
+  script.src = `${experimentId}.js`;
   document.body.appendChild(script);
 }
