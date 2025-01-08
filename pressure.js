@@ -6,8 +6,8 @@ function loadPressureExperiment() {
       <line x1="50" y1="250" x2="350" y2="250" stroke="black" stroke-width="3" />
       <rect id="cube1" x="170" y="200" width="50" height="50" fill="blue" />
       <rect id="cube2" x="170" y="150" width="50" height="50" fill="blue" />
-      <text x="180" y="230" fill="white">Küp 1</text>
-      <text x="180" y="180" fill="white">Küp 2</text>
+      <text x="170" y="230" fill="white">Küp 1</text>
+      <text x="170" y="180" fill="white">Küp 2</text>
     </svg>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
       <label>Kuvvet (N):</label>
