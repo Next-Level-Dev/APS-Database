@@ -31,7 +31,6 @@ document.getElementById('calculate-heat').addEventListener('click', () => {
   `;
 
   // Renk değişimiyle gösterim
-  const gradient = `linear-gradient(to right, red, blue)`;
   document.getElementById('surface1').setAttribute('fill', 'purple');
   document.getElementById('surface2').setAttribute('fill', 'purple');
 });
