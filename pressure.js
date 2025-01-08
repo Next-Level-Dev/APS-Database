@@ -9,7 +9,7 @@ function loadPressureExperiment() {
       <text x="180" y="230" fill="white">Küp 1</text>
       <text x="180" y="180" fill="white">Küp 2</text>
     </svg>
-    <div style="margin-top: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
       <label>Kuvvet (N):</label>
       <input type="number" id="force" />
       <label>Alan (m²):</label>
@@ -18,7 +18,7 @@ function loadPressureExperiment() {
       <input type="number" id="size1" value="50" />
       <label>Küp 2 Boyutu (px):</label>
       <input type="number" id="size2" value="50" />
-      <button id="calculate-pressure">Hesapla</button>
+      <button id="calculate-pressure" style="grid-column: span 2;">Hesapla</button>
     </div>
     <p id="pressure-result"></p>
   `;
@@ -37,7 +37,6 @@ function loadPressureExperiment() {
     const pressure = force / area;
     document.getElementById('pressure-result').innerText = `Basınç (P) = ${pressure.toFixed(2)} Pa`;
 
-    // Update cube sizes and animate
     const cube1 = document.getElementById('cube1');
     const cube2 = document.getElementById('cube2');
     cube1.style.transition = 'width 0.5s ease-in-out, height 0.5s ease-in-out, fill 0.5s ease-in-out';
@@ -47,12 +46,10 @@ function loadPressureExperiment() {
     cube2.setAttribute('width', size2);
     cube2.setAttribute('height', size2);
 
-    // Color change based on pressure
     const newColor = pressure > 50 ? 'red' : 'green';
     cube1.setAttribute('fill', newColor);
     cube2.setAttribute('fill', newColor);
   });
 }
 
-// Run the experiment setup
 loadPressureExperiment();
