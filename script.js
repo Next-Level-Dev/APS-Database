@@ -1,12 +1,13 @@
 const experiments = [
   { id: 'ohm', name: 'Ohm Kanunu' },
-  { id: 'pressure', name: 'Katı Basıncı' }
+  { id: 'pressure', name: 'Katı Basıncı' },
+  { id: 'freefall', name: 'Serbest Düşme' },
+  { id: 'heat', name: 'Isı Yayılımı' }
 ];
 
 const listContainer = document.getElementById('experiment-list');
 const output = document.getElementById('experiment-output');
 
-// Deneyleri listele
 experiments.forEach(exp => {
   const listItem = document.createElement('li');
   listItem.textContent = exp.name;
@@ -15,8 +16,17 @@ experiments.forEach(exp => {
 });
 
 function loadExperiment(experimentId) {
-  output.innerHTML = '<h3>Yükleniyor...</h3>';
+  output.innerHTML = `<h3>${experimentId.replace(/\b\w/g, c => c.toUpperCase())} Deneyi Yüklendi!</h3>`;
+  // Load the corresponding JS file
   const script = document.createElement('script');
   script.src = `${experimentId}.js`;
   document.body.appendChild(script);
 }
+
+document.getElementById('quiz-button').addEventListener('click', () => {
+  alert('Quiz başlatıldı! Bu alan geliştirilebilir.');
+});
+
+document.getElementById('download-certificate').addEventListener('click', () => {
+  alert('Sertifika indiriliyor! Bu alan geliştirilebilir.');
+});
