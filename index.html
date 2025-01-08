@@ -1,35 +1,42 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interaktif Simülasyon Laboratuvarı</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eğitim Platformu</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <nav>
-    <h1>Interaktif Eğitim Laboratuvarı</h1>
-  </nav>
-  
-  <div class="container">
-    <aside class="sidebar">
-      <h3>Deney Listesi</h3>
-      <ul id="experiment-list">
-        <!-- Deneyler dinamik olarak buraya yüklenecek -->
-      </ul>
-    </aside>
+    <header>
+        <h1>Eğitim Platformu</h1>
+        <nav>
+            <a href="#education">Eğitim</a>
+            <a href="#quiz">Sorular</a>
+            <a href="#score">Puanlar</a>
+        </nav>
+    </header>
+    
+    <section id="education">
+        <h2>Eğitim Materyalleri</h2>
+        <div id="content"></div>
+    </section>
 
-    <main id="experiment-container">
-      <h2>Deney Alanı</h2>
-      <div id="experiment-output">Bir deney seçin!</div>
-    </main>
-  </div>
+    <section id="quiz">
+        <h2>Test Soruları</h2>
+        <div id="quiz-area"></div>
+    </section>
 
-  <footer>
-    <button id="quiz-button">Quiz Çöz</button>
-    <button id="download-certificate">Sertifika Al</button>
-  </footer>
+    <section id="score">
+        <h2>Puanlar</h2>
+        <div id="score-board"></div>
+    </section>
 
-  <script src="script.js"></script>
+    <footer>
+        <p>© 2025 Eğitim Platformu</p>
+    </footer>
+
+    <script src="content.js"></script>
+    <script src="quiz.js"></script>
+    <script src="score.js"></script>
 </body>
 </html>
