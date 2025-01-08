@@ -4,13 +4,13 @@ document.getElementById('experiment-output').innerHTML = `
     <circle id="object" cx="200" cy="50" r="20" fill="purple" />
     <line x1="200" y1="80" x2="200" y2="250" stroke="black" stroke-dasharray="5,5" />
   </svg>
-  <div style="margin-top: 20px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
     <label>Yükseklik (m):</label>
     <input type="number" id="height" />
     <label>Kütle (kg):</label>
     <input type="number" id="mass" />
-    <button id="simulate-fall">Simüle Et</button>
-    <button id="reset-fall">Sıfırla</button>
+    <button id="simulate-fall" style="grid-column: span 2;">Simüle Et</button>
+    <button id="reset-fall" style="grid-column: span 2;">Sıfırla</button>
   </div>
   <p id="fall-result"></p>
 `;
@@ -32,7 +32,6 @@ document.getElementById('simulate-fall').addEventListener('click', () => {
     Süre: ${time} saniye, Hız: ${velocity} m/s
   `;
 
-  // Animasyon
   const object = document.getElementById('object');
   object.style.transition = `all ${time}s ease-in`;
   object.setAttribute('cy', '250');
