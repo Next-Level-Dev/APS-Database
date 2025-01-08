@@ -1,7 +1,6 @@
 document.getElementById('experiment-output').innerHTML = `
   <h3>Serbest Düşme Deneyi</h3>
   <svg width="400" height="300">
-    <!-- Cisim -->
     <circle id="object" cx="200" cy="50" r="20" fill="purple" />
     <line x1="200" y1="80" x2="200" y2="250" stroke="black" stroke-dasharray="5,5" />
   </svg>
@@ -11,6 +10,7 @@ document.getElementById('experiment-output').innerHTML = `
     <label>Kütle (kg):</label>
     <input type="number" id="mass" />
     <button id="simulate-fall">Simüle Et</button>
+    <button id="reset-fall">Sıfırla</button>
   </div>
   <p id="fall-result"></p>
 `;
@@ -18,7 +18,7 @@ document.getElementById('experiment-output').innerHTML = `
 document.getElementById('simulate-fall').addEventListener('click', () => {
   const height = parseFloat(document.getElementById('height').value);
   const mass = parseFloat(document.getElementById('mass').value);
-  const g = 9.8; // Yerçekimi ivmesi (m/s²)
+  const g = 9.8; // Yerçekimi ivmesi (m
 
   if (!height || !mass) {
     document.getElementById('fall-result').innerText = 'Lütfen tüm değerleri girin!';
