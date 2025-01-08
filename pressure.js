@@ -6,8 +6,8 @@ function loadPressureExperiment() {
       <line x1="50" y1="250" x2="350" y2="250" stroke="black" stroke-width="3" />
       <rect id="cube1" x="170" y="200" width="50" height="50" fill="blue" />
       <rect id="cube2" x="170" y="150" width="50" height="50" fill="blue" />
-      <text x="170" y="230" fill="white">Küp 1</text>
-      <text x="170" y="180" fill="white">Küp 2</text>
+      <text x="170" y="230" class="cube-text">Küp 1</text>
+      <text x="170" y="180" class="cube-text">Küp 2</text>
     </svg>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
       <label>Kuvvet (N):</label>
@@ -39,12 +39,12 @@ function loadPressureExperiment() {
 
     const cube1 = document.getElementById('cube1');
     const cube2 = document.getElementById('cube2');
-    cube1.style.transition = 'width 0.5s ease-in-out, height 0.5s ease-in-out, fill 0.5s ease-in-out';
-    cube2.style.transition = 'width 0.5s ease-in-out, height 0.5s ease-in-out, fill 0.5s ease-in-out';
-    cube1.setAttribute('width', size1);
+    cube1.style.transition = 'height 0.5s ease-in-out, fill 0.5s ease-in-out';
+    cube2.style.transition = 'height 0.5s ease-in-out, fill 0.5s ease-in-out';
     cube1.setAttribute('height', size1);
-    cube2.setAttribute('width', size2);
     cube2.setAttribute('height', size2);
+    cube1.setAttribute('y', 250 - size1);
+    cube2.setAttribute('y', 250 - size2);
 
     const newColor = pressure > 50 ? 'red' : 'green';
     cube1.setAttribute('fill', newColor);
