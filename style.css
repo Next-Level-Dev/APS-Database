@@ -1,37 +1,30 @@
-/* style.css */
 body {
   font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 nav {
-  background-color: #007BFF;
+  background-color: #4CAF50;
   color: white;
-  padding: 15px;
+  padding: 10px;
   text-align: center;
-  font-size: 1.5em;
-  flex-shrink: 0;
 }
 
 .container {
   display: flex;
-  height: 100%;
-  flex-grow: 1;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  flex-direction: column;
+  margin: 20px;
 }
 
 .sidebar {
-  width: 250px;
-  background-color: #f8f9fa;
-  padding: 15px;
-  border-right: 1px solid #ddd;
-  overflow-y: auto;
-  flex-shrink: 0;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .sidebar h3 {
@@ -43,56 +36,72 @@ nav {
   padding: 0;
 }
 
-.sidebar li {
+.sidebar ul li {
   padding: 10px;
   cursor: pointer;
-  border-bottom: 1px solid #ddd;
 }
 
-.sidebar li:hover {
-  background-color: #007BFF;
-  color: white;
+.sidebar ul li:hover {
+  background-color: #575757;
 }
 
 main {
-  flex-grow: 1;
+  background-color: white;
   padding: 20px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#experiment-output {
-  border: 1px solid #ddd;
-  padding: 20px;
-  width: 100%;
-  max-width: 800px;
-  text-align: center;
+  border-radius: 10px;
 }
 
 footer {
   text-align: center;
-  padding: 10px;
-  background-color: #f1f1f1;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  flex-shrink: 0;
+  margin: 20px;
 }
 
 button {
-  margin: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  background-color: #007BFF;
+  background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 5px;
-  font-size: 1rem;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 5px;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
+}
+
+h3 {
+  color: #4CAF50;
+}
+
+/* Specific styles for the experiments */
+#experiment-output svg text {
+  font-size: 14px;
+  fill: white;
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .sidebar {
+    flex: 1;
+    margin-bottom: 0;
+    margin-right: 20px;
+  }
+
+  main {
+    flex: 3;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar ul li {
+    text-align: center;
+  }
+
+  .sidebar ul li:hover {
+    background-color: #4CAF50;
+  }
 }
