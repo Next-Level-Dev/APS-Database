@@ -5,12 +5,12 @@ document.getElementById('experiment-output').innerHTML = `
     <rect id="surface1" x="50" y="100" width="100" height="100" fill="red" />
     <rect id="surface2" x="250" y="100" width="100" height="100" fill="blue" />
   </svg>
-  <div style="margin-top: 20px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
     <label>Sıcaklık 1 (°C):</label>
     <input type="number" id="temp1" />
     <label>Sıcaklık 2 (°C):</label>
     <input type="number" id="temp2" />
-    <button id="calculate-heat">Hesapla</button>
+    <button id="calculate-heat" style="grid-column: span 2;">Hesapla</button>
   </div>
   <p id="heat-result"></p>
 `;
@@ -30,7 +30,6 @@ document.getElementById('calculate-heat').addEventListener('click', () => {
     Nihai Sıcaklık: ${finalTemp} °C
   `;
 
-  // Gradient color change
   const gradient = `linear-gradient(to right, ${temp1 < temp2 ? 'red' : 'blue'}, ${temp1 < temp2 ? 'blue' : 'red'})`;
   document.getElementById('surface1').style.fill = gradient;
   document.getElementById('surface2').style.fill = gradient;
