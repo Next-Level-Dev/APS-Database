@@ -4,11 +4,11 @@ function loadOhmExperiment() {
     <h3>Ohm Kanunu Deneyi</h3>
     <svg id="circuit" width="400" height="300">
       <rect x="50" y="100" width="40" height="100" fill="gray" />
-      <text x="70" y="160" id="voltage-text">V = ?</text>
+      <text x="70" y="160" id="voltage-text" fill="black">V = ?</text>
       <line x1="90" y1="150" x2="250" y2="150" stroke="black" stroke-width="3" />
       <rect x="250" y="120" width="60" height="60" fill="orange" id="resistor" />
-      <text x="280" y="150" id="resistance-text">R = ?</text>
-      <text x="160" y="140" id="current-text">I = ?</text>
+      <text x="280" y="150" id="resistance-text" fill="black">R = ?</text>
+      <text x="160" y="140" id="current-text" fill="black">I = ?</text>
     </svg>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
       <label>Voltaj (V):</label>
