@@ -18,7 +18,7 @@ document.getElementById('experiment-output').innerHTML = `
 document.getElementById('simulate-fall').addEventListener('click', () => {
   const height = parseFloat(document.getElementById('height').value);
   const mass = parseFloat(document.getElementById('mass').value);
-  const g = 9.8; // Yerçekimi ivmesi (m
+  const g = 9.8; // Yerçekimi ivmesi (m/s²)
 
   if (!height || !mass) {
     document.getElementById('fall-result').innerText = 'Lütfen tüm değerleri girin!';
