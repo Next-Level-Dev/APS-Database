@@ -37,24 +37,22 @@ function loadPressureExperiment() {
     const pressure = force / area;
     document.getElementById('pressure-result').innerText = `Basınç (P) = ${pressure.toFixed(2)} Pa`;
 
-    // Update cube sizes
+    // Update cube sizes and animate
     const cube1 = document.getElementById('cube1');
     const cube2 = document.getElementById('cube2');
+    cube1.style.transition = 'width 0.5s ease-in-out, height 0.5s ease-in-out, fill 0.5s ease-in-out';
+    cube2.style.transition = 'width 0.5s ease-in-out, height 0.5s ease-in-out, fill 0.5s ease-in-out';
     cube1.setAttribute('width', size1);
     cube1.setAttribute('height', size1);
     cube2.setAttribute('width', size2);
     cube2.setAttribute('height', size2);
 
     // Color change based on pressure
-    if (pressure > 50) {
-      cube1.setAttribute('fill', 'red');
-      cube2.setAttribute('fill', 'red');
-    } else {
-      cube1.setAttribute('fill', 'green');
-      cube2.setAttribute('fill', 'green');
-    }
+    const newColor = pressure > 50 ? 'red' : 'green';
+    cube1.setAttribute('fill', newColor);
+    cube2.setAttribute('fill', newColor);
   });
 }
 
-// Deney yüklendiğinde çalıştır
+// Run the experiment setup
 loadPressureExperiment();
