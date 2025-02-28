@@ -19,7 +19,7 @@
             justify-content: center;
         }
 
-        /* LAST UPDATED TEXT (Now Visible Above Login) */
+        /* LAST UPDATED TEXT */
         #last-updated {
             position: absolute;
             top: 10px;
@@ -42,6 +42,7 @@
             text-align: center;
             width: 90%;
             max-width: 400px;
+            position: relative;
         }
 
         #login h2 {
@@ -73,9 +74,12 @@
         }
 
         #disclaimer {
-            margin-top: 10px;
             font-size: 14px;
             color: #888;
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
         }
 
         /* SIDEBAR (Fully Hides) */
@@ -85,7 +89,7 @@
             padding: 20px;
             height: 100vh;
             position: fixed;
-            left: -250px; /* Now fully hidden */
+            left: -250px;
             top: 0;
             overflow-y: auto;
             transition: left 0.3s ease;
@@ -121,13 +125,13 @@
             color: black;
         }
 
-        /* CONTENT (Starts Smaller & Properly Adjusts) */
+        /* CONTENT (Starts Full Size and Adjusts) */
         #content {
             flex-grow: 1;
             padding: 20px;
             box-sizing: border-box;
             overflow: hidden;
-            width: calc(100% - 50px);
+            width: 100%;
             display: none;
             transition: width 0.3s ease;
         }
@@ -168,13 +172,13 @@
         }
 
         .sidebar-open #content {
-            width: calc(100% - 270px);
+            width: calc(100% - 250px); /* PDF viewer now correctly resizes */
         }
     </style>
 </head>
 <body>
     <!-- LAST UPDATED TEXT -->
-    <div id="last-updated">Last Updated: **February 28, 2025, 18:30 GMT+3**</div>  
+    <div id="last-updated">Last Updated: **February 28, 2025, 19:05 GMT+3**</div>  
 
     <!-- LOGIN PAGE -->
     <div id="login">
