@@ -4,225 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A.P.S. Database</title>
-
-    <!-- Google Fonts for Modern Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #232323;  /* Darker Grey Background */
-            color: #dcdcdc;  /* Light Grey Text */
+            background-color: #181818;
+            color: #dcdcdc;
             margin: 0;
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* Login Page Styles */
-        #login {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-            background-color: #333;  /* Darker Grey for Login */
-            position: relative;
-        }
-
-        #login-form {
-            background-color: #444;  /* Medium Grey for the Form */
-            padding: 40px;
-            border-radius: 10px;
-            border: 2px solid #00ff00;  /* Green Border */
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        #login h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            color: #00ff00;  /* Green Text */
-        }
-
-        #login input {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            background-color: #555;  /* Darker Grey Input */
-            color: #fff;
-            border: 2px solid #666;  /* Light Grey Border */
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        #login button {
-            width: 100%;
-            padding: 15px;
-            background-color: #00ff00;  /* Green Button */
-            color: #1e1e1e;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        #login button:hover {
-            background-color: #00cc00;  /* Slightly Darker Green */
-        }
-
-        /* Disclaimer Text */
-        #disclaimer {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            font-size: 14px;
-            color: #aaa;
-            text-align: center;
-            padding: 5px;
-        }
-
-        #disclaimer a {
-            color: #00ff00;
-            text-decoration: none;
-        }
-
-        #disclaimer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Sidebar Styles */
         #sidebar {
             width: 250px;
-            background-color: #222;  /* Dark Grey Sidebar */
+            background-color: #111;
             padding: 20px;
-            border-radius: 5px;
-            display: none;
-            box-sizing: border-box;
             height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
             overflow-y: auto;
-            max-height: 100vh;
-            transition: transform 0.3s ease, width 0.3s ease;
         }
 
-        #sidebar h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #00ff00;
-        }
-
-        #sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        #sidebar ul li {
-            margin: 15px 0;
-        }
-
-        #sidebar ul li a {
-            color: #dcdcdc;
-            text-decoration: none;
-            display: block;
-            padding: 12px 15px;
-            background-color: #333;
-            border-radius: 5px;
-            box-sizing: border-box;
-            border: 2px solid transparent;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        #sidebar ul li a:hover {
-            background-color: #00ff00;
-            border-color: #00ff00;  /* Green border on hover */
-        }
-
-        /* Content Area */
         #content {
             flex-grow: 1;
             padding: 20px;
-            display: none;
-            margin-left: 250px; /* Sidebar width */
-            box-sizing: border-box;
-            overflow-y: auto;
-            transition: margin-left 0.3s ease;
+            margin-left: 250px;
+            overflow: hidden;
         }
 
         iframe {
             width: 100%;
-            height: 100%;
+            height: calc(100vh - 40px);
             border: none;
         }
 
-        /* Sidebar Toggle Button */
         #sidebar-toggle {
             position: absolute;
             top: 20px;
             left: 20px;
-            background-color: #222;
-            color: #fff;
+            width: 50px;
+            height: 50px;
+            background-color: #00ff00;
+            color: #111;
             border: none;
-            padding: 20px;
             border-radius: 50%;
-            font-size: 30px;
+            font-size: 24px;
             cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 0 5px #00ff00;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
         }
 
         #sidebar-toggle:hover {
-            background-color: #00ff00;
-            box-shadow: 0 0 10px #00ff00;
+            background-color: #00cc00;
         }
 
-        /* Mobile View */
         @media screen and (max-width: 768px) {
             #sidebar {
                 width: 100%;
                 height: auto;
-                position: relative;
-                margin-bottom: 10px;
-                transform: translateX(-100%); /* Initially hidden */
+                position: fixed;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
             }
 
             #content {
                 margin-left: 0;
             }
-
-            #login-form {
-                width: 80%;
-            }
-
-            /* For the sidebar toggle on mobile */
-            #sidebar-toggle {
-                left: 15px;
-                top: 15px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Login Page -->
-    <div id="login">
-        <form id="login-form" onsubmit="return login();">
-            <h2>Login</h2>
-            <input type="password" id="password" placeholder="Enter Password" required>
-            <button type="submit">Login</button>
-        </form>
-
-        <!-- Disclaimer at the bottom of the login page -->
-        <div id="disclaimer">
-            <p>This is a fictional writing project, nothing is actually true or confidential. The password is <span style="color: #00ff00;">"h8pux"</span></p>
-        </div>
-    </div>
-
-    <!-- Sidebar -->
+    <button id="sidebar-toggle" onclick="toggleSidebar()">☰</button>
     <div id="sidebar">
         <h3>Files</h3>
         <ul>
@@ -231,61 +87,18 @@
             <li><a href="#" onclick="showPDF('Un-suspicious Dead Bodies.pdf')">Un-suspicious Dead Bodies</a></li>
         </ul>
     </div>
-
-    <!-- Content Area (PDF Viewer) -->
     <div id="content">
-        <iframe id="pdf-viewer" width="100%" height="100%"></iframe>
+        <iframe id="pdf-viewer"></iframe>
     </div>
-
-    <!-- Sidebar Toggle Button -->
-    <button id="sidebar-toggle" onclick="toggleSidebar()">☰</button>
-
-    <!-- JavaScript -->
     <script>
-        // Login functionality
-        function login() {
-            const password = document.getElementById('password').value;
-            if (password === 'h8pux') {
-                document.getElementById('login').style.display = 'none';
-                document.getElementById('sidebar').style.display = 'block';
-                document.getElementById('content').style.display = 'block';
-            } else {
-                alert('Incorrect password');
-            }
-            return false;
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.style.transform = sidebar.style.transform === 'translateX(0px)' ? 'translateX(-100%)' : 'translateX(0px)';
         }
 
-        // Show PDF
         function showPDF(pdf) {
             document.getElementById('pdf-viewer').src = pdf;
         }
-
-        // Toggle Sidebar Visibility
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const sidebarToggle = document.getElementById('sidebar-toggle');
-            const content = document.getElementById('content');
-            if (sidebar.style.display === 'none' || sidebar.style.display === '') {
-                sidebar.style.display = 'block';
-                content.style.marginLeft = '250px';  // Sidebar width
-                if (window.innerWidth <= 768) {
-                    sidebar.style.transform = 'translateX(0)';
-                }
-            } else {
-                sidebar.style.display = 'none';
-                content.style.marginLeft = '0';  // Expand content to fill the gap
-                if (window.innerWidth <= 768) {
-                    sidebar.style.transform = 'translateX(-100%)';
-                }
-            }
-        }
-
-        // Close the sidebar on larger screens when the user clicks outside of it
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                document.getElementById('sidebar').style.transform = 'translateX(0)';
-            }
-        });
     </script>
 </body>
 </html>
