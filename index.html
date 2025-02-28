@@ -5,32 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A.P.S. Database</title>
     <style>
+        /* Base Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden; /* Prevent double scrollbars */
+        }
+
         body {
             font-family: Arial, sans-serif;
             background-color: black;
             color: lime;
-            margin: 0;
             display: flex;
             height: 100vh;
-            overflow: hidden;
         }
 
+        /* LOGIN SCREEN */
         #login {
             display: flex;
             justify-content: center;
             align-items: center;
             flex: 1;
             background-color: #111;
+            text-align: center;
         }
 
         #login-form {
             background-color: rgba(0, 0, 0, 0.9);
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 15px lime;
             width: 100%;
             max-width: 400px;
-            text-align: center;
             border: 2px solid lime;
         }
 
@@ -55,6 +61,19 @@
             background: #00cc00;
         }
 
+        #error-msg {
+            color: red;
+            display: none;
+        }
+
+        /* Disclaimer */
+        #disclaimer {
+            font-size: 12px;
+            color: gray;
+            margin-top: 10px;
+        }
+
+        /* SIDEBAR */
         #sidebar {
             width: 250px;
             background-color: #111;
@@ -64,26 +83,19 @@
             position: fixed;
             top: 0;
             left: 0;
-            box-shadow: 3px 0px 10px lime;
-            overflow-y: auto;
-            transition: all 0.3s ease-in-out;
-        }
-
-        #content {
-            flex-grow: 1;
-            height: 100%;
-            padding: 20px;
-            display: none;
-            margin-left: 250px;
-            box-sizing: border-box;
+            border-right: 2px solid lime; /* Stroke effect instead of glow */
             overflow-y: auto;
         }
 
-        h3 {
+        #sidebar h3 {
             color: lime;
         }
 
-        a {
+        #sidebar ul {
+            list-style: none;
+        }
+
+        #sidebar a {
             color: lime;
             text-decoration: none;
             display: block;
@@ -93,18 +105,29 @@
             margin-bottom: 5px;
         }
 
-        a:hover {
+        #sidebar a:hover {
             background: rgba(0, 255, 0, 0.3);
         }
 
+        /* CONTENT AREA */
+        #content {
+            flex-grow: 1;
+            height: 100vh;
+            padding: 20px;
+            display: none;
+            margin-left: 250px; /* Sidebar width */
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        /* PDF VIEWER */
         iframe {
             width: 100%;
             height: 100%;
-            border: 2px solid lime;
+            border: none; /* Removed neon glow */
             display: none;
         }
 
-        /* Mobile view - smaller screen sizes */
+        /* MOBILE FRIENDLY */
         @media screen and (max-width: 768px) {
             #sidebar {
                 width: 100%;
@@ -124,14 +147,18 @@
     </style>
 </head>
 <body>
+    <!-- LOGIN SCREEN -->
     <div id="login">
         <form id="login-form" onsubmit="return login();">
             <h2>Login</h2>
             <input type="password" id="password" placeholder="Enter Password" required>
             <button type="submit">Login</button>
-            <p style="color: red; display: none;" id="error-msg">Incorrect password!</p>
+            <p id="error-msg">Incorrect password!</p>
+            <p id="disclaimer">Unauthorized access is prohibited. Violators will be prosecuted.</p>
         </form>
     </div>
+
+    <!-- SIDEBAR -->
     <div id="sidebar">
         <h3>Files</h3>
         <ul>
@@ -140,9 +167,12 @@
             <li><a href="#" onclick="showPDF('pdfs/Un-suspicious Dead Bodies.pdf')">Un-suspicious Dead Bodies</a></li>
         </ul>
     </div>
+
+    <!-- PDF VIEWER -->
     <div id="content">
         <iframe id="pdf-viewer"></iframe>
     </div>
+
     <script>
         function login() {
             const password = document.getElementById('password').value;
