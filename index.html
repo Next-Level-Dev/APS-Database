@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #ffffff;
+            background-color: black;
+            color: lime;
             margin: 0;
             display: flex;
             height: 100vh;
@@ -20,31 +20,53 @@
             justify-content: center;
             align-items: center;
             flex: 1;
-            background-color: #333;
+            background-color: #111;
         }
 
         #login-form {
-            background-color: #444;
+            background-color: rgba(0, 0, 0, 0.9);
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px lime;
             width: 100%;
             max-width: 400px;
             text-align: center;
+            border: 2px solid lime;
+        }
+
+        input {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 10px;
+            border: 1px solid lime;
+            background: black;
+            color: lime;
+        }
+
+        button {
+            background: lime;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #00cc00;
         }
 
         #sidebar {
             width: 250px;
-            background-color: #222;
+            background-color: #111;
             padding: 15px;
-            border-radius: 10px;
             display: none;
-            box-sizing: border-box;
             height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
+            box-shadow: 3px 0px 10px lime;
             overflow-y: auto;
+            transition: all 0.3s ease-in-out;
         }
 
         #content {
@@ -52,26 +74,34 @@
             height: 100%;
             padding: 20px;
             display: none;
-            margin-left: 250px; /* Sidebar width */
+            margin-left: 250px;
             box-sizing: border-box;
             overflow-y: auto;
         }
 
+        h3 {
+            color: lime;
+        }
+
         a {
-            color: #00ff00;
+            color: lime;
             text-decoration: none;
             display: block;
-            margin-bottom: 10px; /* Space between links */
+            padding: 5px;
+            border-radius: 5px;
+            background: rgba(0, 255, 0, 0.1);
+            margin-bottom: 5px;
         }
 
         a:hover {
-            text-decoration: underline;
+            background: rgba(0, 255, 0, 0.3);
         }
 
         iframe {
             width: 100%;
             height: 100%;
-            border: none;
+            border: 2px solid lime;
+            display: none;
         }
 
         /* Mobile view - smaller screen sizes */
@@ -99,6 +129,7 @@
             <h2>Login</h2>
             <input type="password" id="password" placeholder="Enter Password" required>
             <button type="submit">Login</button>
+            <p style="color: red; display: none;" id="error-msg">Incorrect password!</p>
         </form>
     </div>
     <div id="sidebar">
@@ -110,7 +141,7 @@
         </ul>
     </div>
     <div id="content">
-        <iframe id="pdf-viewer" width="100%" height="100%"></iframe>
+        <iframe id="pdf-viewer"></iframe>
     </div>
     <script>
         function login() {
@@ -120,13 +151,24 @@
                 document.getElementById('sidebar').style.display = 'block';
                 document.getElementById('content').style.display = 'block';
             } else {
-                alert('Incorrect password');
+                document.getElementById('error-msg').style.display = 'block';
             }
             return false;
         }
 
         function showPDF(pdf) {
-            document.getElementById('pdf-viewer').src = pdf;
+            const pdfViewer = document.getElementById("pdf-viewer");
+
+            fetch(pdf, { method: "HEAD" })
+                .then(response => {
+                    if (response.ok) {
+                        pdfViewer.src = pdf;
+                        pdfViewer.style.display = "block";
+                    } else {
+                        alert("Error: PDF file not found!");
+                    }
+                })
+                .catch(() => alert("Error: PDF file not found!"));
         }
     </script>
 </body>
