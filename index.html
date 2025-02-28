@@ -11,7 +11,7 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #2a2a2a;  /* Dark Grey Background */
+            background-color: #232323;  /* Darker Grey Background */
             color: #dcdcdc;  /* Light Grey Text */
             margin: 0;
             display: flex;
@@ -96,7 +96,7 @@
         /* Sidebar Styles */
         #sidebar {
             width: 250px;
-            background-color: #222;
+            background-color: #222;  /* Dark Grey Sidebar */
             padding: 20px;
             border-radius: 5px;
             display: none;
@@ -107,7 +107,7 @@
             left: 0;
             overflow-y: auto;
             max-height: 100vh;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, width 0.3s ease;
         }
 
         #sidebar h3 {
@@ -150,6 +150,7 @@
             margin-left: 250px; /* Sidebar width */
             box-sizing: border-box;
             overflow-y: auto;
+            transition: margin-left 0.3s ease;
         }
 
         iframe {
@@ -166,13 +167,13 @@
             background-color: #222;
             color: #fff;
             border: none;
-            padding: 15px;
+            padding: 20px;
             border-radius: 50%;
             font-size: 30px;
             cursor: pointer;
             z-index: 1000;
             box-shadow: 0 0 5px #00ff00;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         #sidebar-toggle:hover {
@@ -263,13 +264,16 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const sidebarToggle = document.getElementById('sidebar-toggle');
+            const content = document.getElementById('content');
             if (sidebar.style.display === 'none' || sidebar.style.display === '') {
                 sidebar.style.display = 'block';
+                content.style.marginLeft = '250px';  // Sidebar width
                 if (window.innerWidth <= 768) {
                     sidebar.style.transform = 'translateX(0)';
                 }
             } else {
                 sidebar.style.display = 'none';
+                content.style.marginLeft = '0';  // Expand content to fill the gap
                 if (window.innerWidth <= 768) {
                     sidebar.style.transform = 'translateX(-100%)';
                 }
