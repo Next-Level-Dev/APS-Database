@@ -16,6 +16,16 @@
             font-family: 'Share Tech Mono', monospace;
         }
 
+        /* LAST UPDATED TEXT */
+        #last-updated {
+            position: absolute;
+            top: 10px;
+            color: #888;
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
+        }
+
         /* LOGIN SCREEN */
         #login {
             display: flex;
@@ -26,6 +36,7 @@
             position: absolute;
             width: 100%;
             height: 100vh;
+            flex-direction: column;
         }
 
         #login-form {
@@ -72,22 +83,17 @@
             color: #888;
         }
 
-        /* SIDEBAR (Now Fully Hides) */
+        /* SIDEBAR (Hidden Initially) */
         #sidebar {
             width: 250px;
             background-color: #0d0d0d;
             padding: 20px;
             height: 100vh;
             position: fixed;
-            left: 0;
-            transition: left 0.3s ease;
+            left: -250px; /* Now fully hidden */
             overflow-y: auto;
-            display: none; /* Fully hides */
-        }
-
-        .sidebar-open #sidebar {
-            display: block; /* Now completely hidden when closed */
-            left: 0;
+            transition: left 0.3s ease;
+            display: none;
         }
 
         #sidebar h3 {
@@ -119,14 +125,16 @@
             color: black;
         }
 
-        /* CONTENT */
+        /* CONTENT (Now Starts Smaller) */
         #content {
             flex-grow: 1;
             padding: 20px;
             box-sizing: border-box;
             overflow: hidden;
             margin-left: 0;
+            width: calc(100% - 50px); /* Starts smaller */
             display: none;
+            transition: width 0.3s ease;
         }
 
         iframe {
@@ -159,12 +167,20 @@
         }
 
         /* SIDEBAR OPEN STATE */
+        .sidebar-open #sidebar {
+            left: 0;
+            display: block;
+        }
+
         .sidebar-open #content {
-            margin-left: 250px;
+            width: calc(100% - 270px); /* Reduce width when sidebar is open */
         }
     </style>
 </head>
 <body>
+    <!-- LAST UPDATED TEXT -->
+    <div id="last-updated">Last Updated: **February 28, 2025, 15:42 GMT+3**</div> 
+
     <!-- LOGIN PAGE -->
     <div id="login">
         <form id="login-form" onsubmit="return login();">
@@ -175,18 +191,18 @@
         </form>
     </div>
 
-    <!-- SIDEBAR (Hidden Initially) -->
+    <!-- SIDEBAR -->
     <div id="sidebar">
         <h3>Files</h3>
         <ul id="pdf-list"></ul>
     </div>
 
-    <!-- CONTENT AREA (Hidden Initially) -->
+    <!-- CONTENT AREA -->
     <div id="content">
         <iframe id="pdf-viewer"></iframe>
     </div>
 
-    <!-- SIDEBAR TOGGLE BUTTON (Now at Bottom) -->
+    <!-- SIDEBAR TOGGLE BUTTON -->
     <button id="sidebar-toggle" onclick="toggleSidebar()">☰</button>
 
     <script>
@@ -240,14 +256,7 @@
         }
 
         function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            if (sidebar.style.display === 'none' || sidebar.style.display === '') {
-                sidebar.style.display = 'block';
-                document.body.classList.add('sidebar-open');
-            } else {
-                sidebar.style.display = 'none';
-                document.body.classList.remove('sidebar-open');
-            }
+            document.body.classList.toggle('sidebar-open');
         }
 
         // Load Config on Page Load
