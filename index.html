@@ -11,8 +11,8 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #1e1e1e;
-            color: #ffffff;
+            background-color: #2a2a2a;  /* Dark Grey Background */
+            color: #dcdcdc;  /* Light Grey Text */
             margin: 0;
             display: flex;
             height: 100vh;
@@ -25,15 +25,15 @@
             justify-content: center;
             align-items: center;
             flex: 1;
-            background-color: #111;
+            background-color: #333;  /* Darker Grey for Login */
             position: relative;
         }
 
         #login-form {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: #444;  /* Medium Grey for the Form */
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            border: 2px solid #00ff00;  /* Green Border */
             width: 100%;
             max-width: 400px;
             text-align: center;
@@ -42,16 +42,16 @@
         #login h2 {
             font-size: 36px;
             margin-bottom: 20px;
-            color: #00ff00;
+            color: #00ff00;  /* Green Text */
         }
 
         #login input {
             width: 100%;
             padding: 15px;
             margin: 10px 0;
-            background-color: #333;
+            background-color: #555;  /* Darker Grey Input */
             color: #fff;
-            border: 2px solid #555;
+            border: 2px solid #666;  /* Light Grey Border */
             border-radius: 5px;
             font-size: 16px;
             box-sizing: border-box;
@@ -60,7 +60,7 @@
         #login button {
             width: 100%;
             padding: 15px;
-            background-color: #00ff00;
+            background-color: #00ff00;  /* Green Button */
             color: #1e1e1e;
             border: none;
             border-radius: 5px;
@@ -70,7 +70,7 @@
         }
 
         #login button:hover {
-            background-color: #00cc00;
+            background-color: #00cc00;  /* Slightly Darker Green */
         }
 
         /* Disclaimer Text */
@@ -106,7 +106,7 @@
             top: 0;
             left: 0;
             overflow-y: auto;
-            max-height: 100vh; /* Ensure it fits the screen */
+            max-height: 100vh;
             transition: transform 0.3s ease;
         }
 
@@ -126,19 +126,20 @@
         }
 
         #sidebar ul li a {
-            color: #fff;
+            color: #dcdcdc;
             text-decoration: none;
             display: block;
             padding: 12px 15px;
             background-color: #333;
             border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
+            border: 2px solid transparent;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         #sidebar ul li a:hover {
             background-color: #00ff00;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+            border-color: #00ff00;  /* Green border on hover */
         }
 
         /* Content Area */
@@ -170,13 +171,13 @@
             font-size: 30px;
             cursor: pointer;
             z-index: 1000;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 5px #00ff00;
+            transition: background-color 0.3s ease;
         }
 
         #sidebar-toggle:hover {
             background-color: #00ff00;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+            box-shadow: 0 0 10px #00ff00;
         }
 
         /* Mobile View */
