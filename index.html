@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A.P.S. Database</title>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         body {
@@ -17,18 +17,15 @@
             display: flex;
             height: 100vh;
             overflow: hidden;
-            transition: all 0.3s ease;
         }
 
+        /* Login Page Styles */
         #login {
             display: flex;
             justify-content: center;
             align-items: center;
             flex: 1;
-            background: linear-gradient(45deg, #ff007f, #d400ff);
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            background-color: #333;
             transition: all 0.3s ease;
         }
 
@@ -40,11 +37,9 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
-            backdrop-filter: blur(5px);
         }
 
         #login h2 {
-            font-family: 'Pacifico', cursive;
             font-size: 36px;
             margin-bottom: 20px;
         }
@@ -53,9 +48,9 @@
             width: 100%;
             padding: 15px;
             margin: 10px 0;
-            background-color: #333;
+            background-color: #444;
             color: #fff;
-            border: 2px solid #444;
+            border: 2px solid #555;
             border-radius: 5px;
             font-size: 16px;
         }
@@ -69,14 +64,16 @@
             border-radius: 5px;
             font-size: 18px;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         #login button:hover {
             background-color: #00cc00;
         }
 
+        /* Sidebar Styles */
         #sidebar {
-            width: 300px;
+            width: 250px;
             background-color: #222;
             padding: 20px;
             border-radius: 10px;
@@ -87,13 +84,13 @@
             top: 0;
             left: 0;
             overflow-y: auto;
-            transition: all 0.3s ease;
+            max-height: 100vh; /* Ensure it fits the screen */
+            transition: transform 0.3s ease;
         }
 
         #sidebar h3 {
-            font-family: 'Pacifico', cursive;
-            margin-bottom: 20px;
             font-size: 24px;
+            margin-bottom: 20px;
             color: #00ff00;
         }
 
@@ -120,13 +117,13 @@
             background-color: #00ff00;
         }
 
+        /* Content Area */
         #content {
             flex-grow: 1;
             padding: 20px;
             display: none;
-            margin-left: 300px;
+            margin-left: 250px; /* Sidebar width */
             box-sizing: border-box;
-            height: 100vh;
             overflow-y: auto;
         }
 
@@ -136,6 +133,7 @@
             border: none;
         }
 
+        /* Sidebar Toggle Button */
         #sidebar-toggle {
             position: absolute;
             top: 20px;
@@ -147,19 +145,22 @@
             border-radius: 50%;
             font-size: 24px;
             cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
         }
 
-        #sidebar-toggle:focus {
-            outline: none;
+        #sidebar-toggle:hover {
+            background-color: #00ff00;
         }
 
-        /* Mobile view - smaller screen sizes */
+        /* Mobile View */
         @media screen and (max-width: 768px) {
             #sidebar {
                 width: 100%;
                 height: auto;
                 position: relative;
                 margin-bottom: 10px;
+                transform: translateX(-100%); /* Initially hidden */
             }
 
             #content {
@@ -168,6 +169,12 @@
 
             #login-form {
                 width: 80%;
+            }
+
+            /* For the sidebar toggle on mobile */
+            #sidebar-toggle {
+                left: 15px;
+                top: 15px;
             }
         }
     </style>
@@ -202,6 +209,7 @@
 
     <!-- JavaScript -->
     <script>
+        // Login functionality
         function login() {
             const password = document.getElementById('password').value;
             if (password === 'h8pux') {
@@ -214,18 +222,34 @@
             return false;
         }
 
+        // Show PDF
         function showPDF(pdf) {
             document.getElementById('pdf-viewer').src = pdf;
         }
 
+        // Toggle Sidebar Visibility
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebar-toggle');
             if (sidebar.style.display === 'none' || sidebar.style.display === '') {
                 sidebar.style.display = 'block';
+                if (window.innerWidth <= 768) {
+                    sidebar.style.transform = 'translateX(0)';
+                }
             } else {
                 sidebar.style.display = 'none';
+                if (window.innerWidth <= 768) {
+                    sidebar.style.transform = 'translateX(-100%)';
+                }
             }
         }
+
+        // Close the sidebar on larger screens when the user clicks outside of it
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('sidebar').style.transform = 'translateX(0)';
+            }
+        });
     </script>
 </body>
 </html>
