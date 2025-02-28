@@ -3,108 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Files</title>
+    <title>A.P.S. Database</title>
     <style>
         body {
-            background-color: black;
-            color: green;
             font-family: Arial, sans-serif;
-            text-align: center;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
         }
-        .container {
+
+        #login {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            flex: 1;
+            background-color: #333;
         }
-        .login-box {
-            border: 2px solid lime;
+
+        #login-form {
+            background-color: #444;
             padding: 20px;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.9);
             border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
         }
-        input {
-            padding: 10px;
-            width: 80%;
-            margin-bottom: 10px;
-        }
-        button {
-            background: lime;
-            color: black;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-        }
-        #file-section {
+
+        #sidebar {
+            width: 250px;
+            background-color: #222;
+            padding: 15px;
+            border-radius: 10px;
             display: none;
-            margin-top: 20px;
+            box-sizing: border-box;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
         }
-        .file-button {
-            background: white;
-            color: black;
-            padding: 5px 10px;
-            margin: 5px;
-            border: none;
-            cursor: pointer;
+
+        #content {
+            flex-grow: 1;
+            height: 100%;
+            padding: 20px;
+            display: none;
+            margin-left: 250px; /* Sidebar width */
+            box-sizing: border-box;
+            overflow-y: auto;
         }
+
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px; /* Space between links */
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
         iframe {
-            width: 80%;
-            height: 500px;
-            border: 2px solid lime;
-            margin-top: 20px;
-            display: none;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
-        .error {
-            color: red;
-            font-weight: bold;
+
+        /* Mobile view - smaller screen sizes */
+        @media screen and (max-width: 768px) {
+            #sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                margin-bottom: 10px;
+            }
+
+            #content {
+                margin-left: 0;
+            }
+
+            #login-form {
+                width: 80%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="login-section" class="login-box">
+    <div id="login">
+        <form id="login-form" onsubmit="return login();">
             <h2>Login</h2>
-            <input type="password" id="password" placeholder="Enter Password">
-            <button onclick="checkPassword()">Login</button>
-            <p class="error" id="error-message" style="display: none;">Wrong password!</p>
-            <p>This is a fictional project. The password is <b>h&pux</b></p>
-        </div>
-
-        <div id="file-section">
-            <h2>Files</h2>
-            <button class="file-button" onclick="loadPDF(0)">Stairs That Consume</button>
-            <button class="file-button" onclick="loadPDF(1)">The Throath</button>
-            <button class="file-button" onclick="loadPDF(2)">Un-suspicious Dead Bodies</button>
-            <iframe id="pdf-viewer"></iframe>
-        </div>
+            <input type="password" id="password" placeholder="Enter Password" required>
+            <button type="submit">Login</button>
+        </form>
     </div>
-
+    <div id="sidebar">
+        <h3>Files</h3>
+        <ul>
+            <li><a href="#" onclick="showPDF('pdfs/Stairs That Consume.pdf')">Stairs That Consume</a></li>
+            <li><a href="#" onclick="showPDF('pdfs/The Throath.pdf')">The Throath</a></li>
+            <li><a href="#" onclick="showPDF('pdfs/Un-suspicious Dead Bodies.pdf')">Un-suspicious Dead Bodies</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <iframe id="pdf-viewer" width="100%" height="100%"></iframe>
+    </div>
     <script>
-        function checkPassword() {
-            const password = document.getElementById("password").value;
-            if (password === "h&pux") {
-                document.getElementById("login-section").style.display = "none";
-                document.getElementById("file-section").style.display = "block";
+        function login() {
+            const password = document.getElementById('password').value;
+            if (password === 'h8pux') {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('sidebar').style.display = 'block';
+                document.getElementById('content').style.display = 'block';
             } else {
-                document.getElementById("error-message").style.display = "block";
+                alert('Incorrect password');
             }
+            return false;
         }
 
-        function loadPDF(index) {
-            const pdfFiles = ["pdfs/stairs.pdf", "pdfs/throath.pdf", "pdfs/dead_bodies.pdf"];
-            const pdfViewer = document.getElementById("pdf-viewer");
-
-            fetch(pdfFiles[index], { method: "HEAD" })
-                .then(response => {
-                    if (response.ok) {
-                        pdfViewer.src = pdfFiles[index];
-                        pdfViewer.style.display = "block";
-                    } else {
-                        alert("Error: PDF file not found!");
-                    }
-                })
-                .catch(() => alert("Error: PDF file not found!"));
+        function showPDF(pdf) {
+            document.getElementById('pdf-viewer').src = pdf;
         }
     </script>
 </body>
