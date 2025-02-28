@@ -3,40 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eğitim Platformu</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Hacker Theme PDF Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            margin: 0;
+            display: flex;
+        }
+        #login {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #333;
+        }
+        #login-form {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        #sidebar {
+            width: 200px;
+            background-color: #222;
+            padding: 10px;
+            border-radius: 10px;
+            display: none;
+        }
+        #content {
+            flex-grow: 1;
+            padding: 20px;
+            display: none;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Eğitim Platformu</h1>
-        <nav>
-            <a href="#education">Eğitim</a>
-            <a href="#quiz">Sorular</a>
-            <a href="#score">Puanlar</a>
-        </nav>
-    </header>
-    
-    <section id="education">
-        <h2>Eğitim Materyalleri</h2>
-        <div id="content"></div>
-    </section>
+    <div id="login">
+        <form id="login-form" onsubmit="return login();">
+            <h2>Login</h2>
+            <input type="password" id="password" placeholder="Enter Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <div id="sidebar">
+        <h3>PDF Files</h3>
+        <ul>
+            <li><a href="#" onclick="showPDF('file1.pdf')">File 1</a></li>
+            <li><a href="#" onclick="showPDF('file2.pdf')">File 2</a></li>
+            <li><a href="#" onclick="showPDF('file3.pdf')">File 3</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <iframe id="pdf-viewer" width="100%" height="100%"></iframe>
+    </div>
+    <script>
+        function login() {
+            const password = document.getElementById('password').value;
+            if (password === 'yourpassword') {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('sidebar').style.display = 'block';
+                document.getElementById('content').style.display = 'block';
+            } else {
+                alert('Incorrect password');
+            }
+            return false;
+        }
 
-    <section id="quiz">
-        <h2>Test Soruları</h2>
-        <div id="quiz-area"></div>
-    </section>
-
-    <section id="score">
-        <h2>Puanlar</h2>
-        <div id="score-board"></div>
-    </section>
-
-    <footer>
-        <p>© 2025 Eğitim Platformu</p>
-    </footer>
-
-    <script src="content.js"></script>
-    <script src="quiz.js"></script>
-    <script src="score.js"></script>
+        function showPDF(pdf) {
+            document.getElementById('pdf-viewer').src = pdf;
+        }
+    </script>
 </body>
 </html>
