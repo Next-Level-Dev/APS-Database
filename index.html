@@ -26,6 +26,7 @@
             align-items: center;
             flex: 1;
             background-color: #111;
+            position: relative;
         }
 
         #login-form {
@@ -70,6 +71,26 @@
 
         #login button:hover {
             background-color: #00cc00;
+        }
+
+        /* Disclaimer Text */
+        #disclaimer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            font-size: 14px;
+            color: #aaa;
+            text-align: center;
+            padding: 5px;
+        }
+
+        #disclaimer a {
+            color: #00ff00;
+            text-decoration: none;
+        }
+
+        #disclaimer a:hover {
+            text-decoration: underline;
         }
 
         /* Sidebar Styles */
@@ -192,6 +213,11 @@
             <input type="password" id="password" placeholder="Enter Password" required>
             <button type="submit">Login</button>
         </form>
+
+        <!-- Disclaimer at the bottom of the login page -->
+        <div id="disclaimer">
+            <p>This is a fictional writing project, nothing is actually true or confidential. The password is <span style="color: #00ff00;">"h8pux"</span></p>
+        </div>
     </div>
 
     <!-- Sidebar -->
