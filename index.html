@@ -3,260 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A.P.S. Database</title>
-
+    <title>PDF Viewer & Login</title>
     <style>
+        /* Dark theme */
         body {
             background-color: #111;
-            color: #bbb;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
             margin: 0;
+        }
+
+        /* Center login elements */
+        .login-container {
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             height: 100vh;
-            overflow: hidden;
-            font-family: 'Share Tech Mono', monospace;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
 
-        /* LAST UPDATED TEXT */
-        #last-updated {
-            position: absolute;
-            top: 10px;
-            width: 100%;
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-        }
-
-        /* LOGIN SCREEN */
-        #login {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            background-color: #1a1a1a;
-            padding: 40px;
-            border-radius: 10px;
-            border: 2px solid #00ff00;
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            position: relative;
-        }
-
-        #login h2 {
-            color: #00ff00;
-            margin-bottom: 20px;
-        }
-
-        #login input {
-            width: calc(100% - 22px);
-            padding: 12px;
-            background-color: #333;
-            color: #fff;
-            border: 2px solid #666;
-            border-radius: 5px;
-            font-size: 16px;
-            text-align: center;
-        }
-
-        #login button {
-            width: 80%;
-            padding: 10px;
-            background-color: #00ff00;
-            color: #111;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-
-        #disclaimer {
-            font-size: 14px;
-            color: #888;
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            text-align: center;
-        }
-
-        /* SIDEBAR (Fully Hides) */
-        #sidebar {
-            width: 250px;
-            background-color: #0d0d0d;
+        .login-box {
+            background: #000;
             padding: 20px;
-            height: 100vh;
-            position: fixed;
-            left: -250px;
-            top: 0;
-            overflow-y: auto;
-            transition: left 0.3s ease;
-            display: none;
+            border: 2px solid lime;
+            border-radius: 10px;
+            text-align: center;
         }
 
-        #sidebar h3 {
-            color: #00ff00;
+        input[type="password"] {
+            width: 80%;
+            height: 40px;
+            text-align: center;
+            font-size: 18px;
             margin-bottom: 10px;
         }
 
-        #sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-        }
-
-        #sidebar ul li {
-            margin: 10px 0;
-        }
-
-        #sidebar ul li a {
-            color: #dcdcdc;
-            text-decoration: none;
-            padding: 10px;
-            display: block;
-            background-color: #222;
-            border-radius: 5px;
-        }
-
-        #sidebar ul li a:hover {
-            background-color: #00ff00;
-            color: black;
-        }
-
-        /* CONTENT (Starts Full Size and Adjusts) */
-        #content {
-            flex-grow: 1;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow: hidden;
-            width: 100%;
-            display: none;
-            transition: width 0.3s ease;
-        }
-
-        iframe {
-            width: 100%;
-            height: calc(100vh - 20px);
+        .login-button {
+            width: 50%;
+            height: 35px;
+            background: lime;
             border: none;
-        }
-
-        /* SIDEBAR TOGGLE BUTTON (Now at Bottom) */
-        #sidebar-toggle {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: #222;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            font-size: 24px;
             cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 0 5px #00ff00;
-            display: none;
+            font-size: 16px;
         }
 
-        #sidebar-toggle:hover {
-            background-color: #00ff00;
-            color: black;
+        .login-button:hover {
+            background: #0f0;
         }
 
-        /* SIDEBAR OPEN STATE */
-        .sidebar-open #sidebar {
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            left: -260px;
+            top: 0;
+            background: #000;
+            transition: left 0.3s;
+            padding-top: 20px;
+        }
+
+        .sidebar.open {
             left: 0;
-            display: block;
         }
 
-        .sidebar-open #content {
-            width: calc(100% - 250px); /* PDF viewer now correctly resizes */
+        /* Sidebar button */
+        .sidebar-toggle {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: none;
+            border: 2px solid lime;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* PDF viewer */
+        .pdf-container {
+            margin-left: 260px;
+            transition: margin-left 0.3s;
+            width: calc(100% - 260px);
+        }
+
+        .sidebar.open + .pdf-container {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        /* Last updated timestamp */
+        .last-updated {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: lime;
         }
     </style>
 </head>
 <body>
-    <!-- LAST UPDATED TEXT -->
-    <div id="last-updated">Last Updated: **February 28, 2025, 19:05 GMT+3**</div>  
 
-    <!-- LOGIN PAGE -->
-    <div id="login">
-        <h2>Login</h2>
-        <input type="password" id="password" placeholder="Enter Password" required>
-        <button onclick="login()">Login</button>
-        <p id="disclaimer"></p>
+    <!-- Last updated -->
+    <div class="last-updated">Last Updated: **loading...**</div>
+
+    <!-- Login -->
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Login</h2>
+            <input type="password" id="password" placeholder="Enter Password">
+            <button class="login-button">Login</button>
+            <p class="disclaimer">This is a fictional project. The password is <code>h8pux</code></p>
+        </div>
     </div>
 
-    <!-- SIDEBAR -->
-    <div id="sidebar">
+    <!-- Sidebar -->
+    <div class="sidebar">
         <h3>Files</h3>
-        <ul id="pdf-list"></ul>
+        <button class="file-button">Stairs That Consume</button>
+        <button class="file-button">The Throath</button>
+        <button class="file-button">Un-suspicious Dead Bodies</button>
     </div>
 
-    <!-- CONTENT AREA -->
-    <div id="content">
-        <iframe id="pdf-viewer"></iframe>
-    </div>
+    <!-- Sidebar toggle button -->
+    <button class="sidebar-toggle">☰</button>
 
-    <!-- SIDEBAR TOGGLE BUTTON -->
-    <button id="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <!-- PDF Viewer -->
+    <div class="pdf-container">
+        <iframe id="pdf-viewer" src="pdfs/sample.pdf" width="100%" height="600px"></iframe>
+    </div>
 
     <script>
-        let siteConfig = {}; // Store config data
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector(".sidebar");
+            const toggleButton = document.querySelector(".sidebar-toggle");
+            const pdfContainer = document.querySelector(".pdf-container");
+            const lastUpdated = document.querySelector(".last-updated");
+            const loginBox = document.querySelector(".login-container");
+            const passwordInput = document.getElementById("password");
+            const loginButton = document.querySelector(".login-button");
 
-        async function loadConfig() {
-            try {
-                const response = await fetch('config.json');
-                siteConfig = await response.json();
+            // Sidebar toggle functionality
+            toggleButton.addEventListener("click", function () {
+                sidebar.classList.toggle("open");
 
-                // Set Disclaimer Message
-                document.getElementById('disclaimer').textContent = siteConfig.disclaimer;
-
-                // Load PDFs
-                const pdfList = document.getElementById('pdf-list');
-                pdfList.innerHTML = '';
-
-                if (siteConfig.pdfs.length > 0) {
-                    showPDF(siteConfig.pdfs[0]); // Auto-load first PDF
+                if (sidebar.classList.contains("open")) {
+                    pdfContainer.style.marginLeft = "260px";
+                    pdfContainer.style.width = "calc(100% - 260px)";
+                } else {
+                    pdfContainer.style.marginLeft = "0";
+                    pdfContainer.style.width = "100%";
                 }
+            });
 
-                siteConfig.pdfs.forEach(pdf => {
-                    const li = document.createElement('li');
-                    const a = document.createElement('a');
-                    a.href = "#";
-                    a.textContent = pdf.split('/').pop().replace('.pdf', '');
-                    a.onclick = () => showPDF(pdf);
-                    li.appendChild(a);
-                    pdfList.appendChild(li);
+            // Set last updated timestamp
+            const now = new Date();
+            const formattedTime = now.toLocaleString("en-GB", { timeZone: "Etc/GMT-3" });
+            lastUpdated.innerHTML = `Last Updated: **${formattedTime} GMT+3**`;
+
+            // Login functionality
+            loginButton.addEventListener("click", function () {
+                if (passwordInput.value === "h8pux") {
+                    loginBox.style.display = "none"; // Hide login
+                } else {
+                    alert("Incorrect password!");
+                }
+            });
+
+            // PDF file selection
+            document.querySelectorAll(".file-button").forEach((button, index) => {
+                button.addEventListener("click", function () {
+                    const pdfFiles = ["pdfs/stairs.pdf", "pdfs/throath.pdf", "pdfs/dead_bodies.pdf"];
+                    document.getElementById("pdf-viewer").src = pdfFiles[index];
                 });
-            } catch (error) {
-                console.error("Error loading config:", error);
-            }
-        }
-
-        function login() {
-            const enteredPassword = document.getElementById('password').value;
-            if (enteredPassword === siteConfig.password) {
-                document.getElementById('login').style.display = 'none';
-                document.getElementById('sidebar').style.display = 'block';
-                document.getElementById('content').style.display = 'block';
-                document.getElementById('sidebar-toggle').style.display = 'block';
-            } else {
-                alert('Incorrect password');
-            }
-        }
-
-        function showPDF(pdf) {
-            document.getElementById('pdf-viewer').src = pdf;
-        }
-
-        function toggleSidebar() {
-            document.body.classList.toggle('sidebar-open');
-        }
-
-        // Load Config on Page Load
-        window.onload = loadConfig;
+            });
+        });
     </script>
+
 </body>
 </html>
