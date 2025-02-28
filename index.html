@@ -16,7 +16,7 @@
             font-family: 'Share Tech Mono', monospace;
         }
 
-        /* LOGIN SCREEN (Now Fully Centered) */
+        /* LOGIN SCREEN (Fixed Layout) */
         #login {
             display: flex;
             justify-content: center;
@@ -55,31 +55,31 @@
         }
 
         #login button {
-            width: 100%;
-            padding: 12px;
+            width: 80%;
+            padding: 10px;
             background-color: #00ff00;
             color: #111;
             border: none;
             border-radius: 5px;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         #disclaimer {
-            margin-top: 15px;
+            margin-top: 10px;
             font-size: 14px;
             color: #888;
         }
 
-        /* SIDEBAR (Now Fully Hides) */
+        /* SIDEBAR (Fully Hides) */
         #sidebar {
             width: 250px;
             background-color: #0d0d0d;
             padding: 20px;
             height: 100vh;
             position: fixed;
-            left: -250px;
+            left: -250px; /* Now fully hides */
             transition: left 0.3s ease;
             overflow-y: auto;
             display: none;
@@ -87,11 +87,13 @@
 
         #sidebar h3 {
             color: #00ff00;
+            margin-bottom: 10px;
         }
 
         #sidebar ul {
             list-style: none;
             padding: 0;
+            margin-top: 20px; /* Offset file list downward */
         }
 
         #sidebar ul li {
@@ -112,7 +114,7 @@
             color: black;
         }
 
-        /* CONTENT (Now Hidden Until Login) */
+        /* CONTENT (Hidden Until Login) */
         #content {
             flex-grow: 1;
             padding: 20px;
@@ -128,10 +130,10 @@
             border: none;
         }
 
-        /* SIDEBAR TOGGLE BUTTON (Now Stays in Place) */
+        /* SIDEBAR TOGGLE BUTTON (Moved to Bottom) */
         #sidebar-toggle {
             position: absolute;
-            top: 20px;
+            bottom: 20px; /* Moved to the bottom */
             left: 20px;
             width: 50px;
             height: 50px;
@@ -183,7 +185,7 @@
         <iframe id="pdf-viewer"></iframe>
     </div>
 
-    <!-- SIDEBAR TOGGLE BUTTON (Hidden Initially) -->
+    <!-- SIDEBAR TOGGLE BUTTON (Now at Bottom) -->
     <button id="sidebar-toggle" onclick="toggleSidebar()">☰</button>
 
     <script>
