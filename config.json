@@ -2,8 +2,8 @@
     "password": "h8pux",
     "disclaimer": "This is a fictional writing project, nothing is actually true or confidential. the password is `h8pux`",
     "pdfs": [
-        "pdfs/Stairs That Consume.pdf",
-        "pdfs/The Throath.pdf",
-        "pdfs/Un-suspicious Dead Bodies.pdf"
+        { "name": "Stairs That Consume", "path": "pdfs/Stairs That Consume.pdf" },
+        { "name": "The Throath", "path": "pdfs/The Throath.pdf" },
+        { "name": "Un-suspicious Dead Bodies", "path": "pdfs/Un-suspicious Dead Bodies.pdf" }
     ]
 }

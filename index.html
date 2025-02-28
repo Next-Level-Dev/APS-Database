@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            overflow: hidden; /* Prevent double scrollbars */
+            overflow: hidden;
         }
 
         body {
@@ -33,10 +33,10 @@
 
         #login-form {
             background-color: rgba(0, 0, 0, 0.9);
-            padding: 20px;
+            padding: 30px; /* Slightly bigger */
             border-radius: 10px;
             width: 100%;
-            max-width: 400px;
+            max-width: 450px; /* Increased */
             border: 2px solid lime;
         }
 
@@ -83,7 +83,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            border-right: 2px solid lime; /* Stroke effect instead of glow */
+            border-right: 2px solid lime;
             overflow-y: auto;
         }
 
@@ -115,15 +115,15 @@
             height: 100vh;
             padding: 20px;
             display: none;
-            margin-left: 250px; /* Sidebar width */
-            overflow: hidden; /* Prevent scrolling */
+            margin-left: 250px;
+            overflow: hidden;
         }
 
         /* PDF VIEWER */
         iframe {
             width: 100%;
             height: 100%;
-            border: none; /* Removed neon glow */
+            border: none;
             display: none;
         }
 
@@ -154,18 +154,14 @@
             <input type="password" id="password" placeholder="Enter Password" required>
             <button type="submit">Login</button>
             <p id="error-msg">Incorrect password!</p>
-            <p id="disclaimer">Unauthorized access is prohibited. Violators will be prosecuted.</p>
+            <p id="disclaimer"></p> <!-- Disclaimer loads dynamically -->
         </form>
     </div>
 
     <!-- SIDEBAR -->
     <div id="sidebar">
         <h3>Files</h3>
-        <ul>
-            <li><a href="#" onclick="showPDF('pdfs/Stairs That Consume.pdf')">Stairs That Consume</a></li>
-            <li><a href="#" onclick="showPDF('pdfs/The Throath.pdf')">The Throath</a></li>
-            <li><a href="#" onclick="showPDF('pdfs/Un-suspicious Dead Bodies.pdf')">Un-suspicious Dead Bodies</a></li>
-        </ul>
+        <ul id="pdf-list"></ul> <!-- PDF links load dynamically -->
     </div>
 
     <!-- PDF VIEWER -->
@@ -174,9 +170,33 @@
     </div>
 
     <script>
+        let configData = {}; // Stores JSON data
+
+        // Load config.json
+        fetch('config.json')
+            .then(response => response.json())
+            .then(data => {
+                configData = data;
+                document.getElementById('disclaimer').innerText = configData.disclaimer;
+
+                // Populate PDF list
+                const pdfList = document.getElementById('pdf-list');
+                configData.pdfs.forEach(pdf => {
+                    let listItem = document.createElement('li');
+                    let link = document.createElement('a');
+                    link.href = "#";
+                    link.innerText = pdf.name;
+                    link.onclick = () => showPDF(pdf.path);
+                    listItem.appendChild(link);
+                    pdfList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error("Error loading config.json:", error));
+
+        // Login function
         function login() {
             const password = document.getElementById('password').value;
-            if (password === 'h8pux') {
+            if (password === configData.password) {
                 document.getElementById('login').style.display = 'none';
                 document.getElementById('sidebar').style.display = 'block';
                 document.getElementById('content').style.display = 'block';
@@ -186,6 +206,7 @@
             return false;
         }
 
+        // Show PDF function
         function showPDF(pdf) {
             const pdfViewer = document.getElementById("pdf-viewer");
 
