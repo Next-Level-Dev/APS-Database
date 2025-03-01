@@ -93,14 +93,13 @@
 
         #sidebar ul {
             list-style: none;
-            padding-left: 10px; /* Added padding */
         }
 
         #sidebar a {
             color: lime;
             text-decoration: none;
             display: block;
-            padding: 10px; /* Increased padding */
+            padding: 5px;
             border-radius: 5px;
             background: rgba(0, 255, 0, 0.1);
             margin-bottom: 5px;
@@ -169,5 +168,59 @@
     <div id="content">
         <iframe id="pdf-viewer"></iframe>
     </div>
+
+    <script>
+        let configData = {}; // Stores JSON data
+
+        // Load config.json
+        fetch('config.json')
+            .then(response => response.json())
+            .then(data => {
+                configData = data;
+                document.getElementById('disclaimer').innerText = configData.disclaimer;
+
+                // Populate PDF list
+                const pdfList = document.getElementById('pdf-list');
+                configData.pdfs.forEach(pdf => {
+                    let listItem = document.createElement('li');
+                    let link = document.createElement('a');
+                    link.href = "#";
+                    link.innerText = pdf.name;
+                    link.onclick = () => showPDF(pdf.path);
+                    listItem.appendChild(link);
+                    pdfList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error("Error loading config.json:", error));
+
+        // Login function
+        function login() {
+            const password = document.getElementById('password').value;
+            if (password === configData.password) {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('sidebar').style.display = 'block';
+                document.getElementById('content').style.display = 'block';
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+            return false;
+        }
+
+        // Show PDF function
+        function showPDF(pdf) {
+            const pdfViewer = document.getElementById("pdf-viewer");
+
+            fetch(pdf, { method: "HEAD" })
+                .then(response => {
+                    if (response.ok) {
+                        pdfViewer.src = pdf;
+                        pdfViewer.style.display = "block";
+                    } else {
+                        alert("Error: PDF file not found!");
+                    }
+                })
+                .catch(() => alert("Error: PDF file not found!"));
+        }
+    </script>
 </body>
 </html>
